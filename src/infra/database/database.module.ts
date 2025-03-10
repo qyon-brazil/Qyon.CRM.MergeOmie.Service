@@ -31,6 +31,8 @@ import { ChatControlsRepositoryGateway } from 'src/app/gateways/chat-control.rep
 import { KnexChatControlRepository } from './repositories/knex.chat-control.repository';
 import { ClientConsumptionsRepositoryGateway } from 'src/app/gateways/client-consumption.repository.gateway';
 import { KnexClientConsumptionRepository } from './repositories/knex.client-consumption.repository';
+import { ConsumptionExtractsRepositoryGateway } from 'src/app/gateways/consumption-extract.repository.gateway';
+import { KnexConsumptionExtractRepository } from './repositories/knex.consumption-extract.repository';
 
 @Module({
   imports: [
@@ -108,6 +110,10 @@ import { KnexClientConsumptionRepository } from './repositories/knex.client-cons
       provide: ClientConsumptionsRepositoryGateway,
       useClass: KnexClientConsumptionRepository,
     },
+    {
+      provide: ConsumptionExtractsRepositoryGateway,
+      useClass: KnexConsumptionExtractRepository,
+    },
   ],
   exports: [
     ClientRepositoryGateway,
@@ -125,6 +131,7 @@ import { KnexClientConsumptionRepository } from './repositories/knex.client-cons
     SuggestionsRepositoryGateway,
     ClientAreaNotificationsRepositoryGateway,
     ClientConsumptionsRepositoryGateway,
+    ConsumptionExtractsRepositoryGateway,
   ],
 })
 export class DatabaseModule {}

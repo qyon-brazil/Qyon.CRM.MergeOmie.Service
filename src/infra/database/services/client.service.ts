@@ -14,6 +14,7 @@ import { TimeInChatRoomsRepositoryGateway } from 'src/app/gateways/time-in-chat-
 import { ChatControlsRepositoryGateway } from 'src/app/gateways/chat-control.repository.gateway';
 import { ClientAreaNotificationsRepositoryGateway } from 'src/app/gateways/client-area-notification.repository.gateway';
 import { ClientConsumptionsRepositoryGateway } from 'src/app/gateways/client-consumption.repository.gateway';
+import { ConsumptionExtractsRepositoryGateway } from 'src/app/gateways/consumption-extract.repository.gateway';
 
 @Injectable()
 export class ClientService {
@@ -35,6 +36,7 @@ export class ClientService {
     private readonly chatControlRepository: ChatControlsRepositoryGateway,
     private readonly clientAreaNotificationRepository: ClientAreaNotificationsRepositoryGateway,
     private readonly clientConsumptionRepository: ClientConsumptionsRepositoryGateway,
+    private readonly consumptionExtractRepository: ConsumptionExtractsRepositoryGateway,
   ) {}
 
   async getDuplicatesClients() {
@@ -419,6 +421,32 @@ export class ClientService {
 
     this.logger.log(
       `[changeAllClientConsumptionClient]: ${clientConsumptionIds.length} client consumptions => ${newClientId}`,
+    );
+
+    return { message: 'ok' };
+  }
+
+  async changeAllConsumptionExtractClient({
+    oldClientId,
+    newClientId,
+  }: {
+    oldClientId: number;
+    newClientId: number;
+  }) {
+    this.logger.log(
+      `[changeAllConsumptionExtractClient]: changing all consumption extracts of ${oldClientId} to ${newClientId}`,
+    );
+
+    const consumptionExtractIds =
+      await this.consumptionExtractRepository.changeAllConsumptionExtractsClient(
+        {
+          newClientId,
+          oldClientId,
+        },
+      );
+
+    this.logger.log(
+      `[changeAllConsumptionExtractClient]: ${consumptionExtractIds.length} consumption extracts => ${newClientId}`,
     );
 
     return { message: 'ok' };
