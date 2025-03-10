@@ -91,6 +91,11 @@ export class MergeAllUseCase {
           oldClientId,
         });
 
+        await this.clientService.changeAllClientConsumptionClient({
+          newClientId,
+          oldClientId,
+        });
+
         clientIds.push(oldClientId);
 
         this.logger.log(

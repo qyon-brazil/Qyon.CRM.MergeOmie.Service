@@ -29,6 +29,8 @@ import { TimeInChatRoomsRepositoryGateway } from 'src/app/gateways/time-in-chat-
 import { KnexTimeInChatRoomRepository } from './repositories/knex.time-in-chat-room.repository';
 import { ChatControlsRepositoryGateway } from 'src/app/gateways/chat-control.repository.gateway';
 import { KnexChatControlRepository } from './repositories/knex.chat-control.repository';
+import { ClientConsumptionsRepositoryGateway } from 'src/app/gateways/client-consumption.repository.gateway';
+import { KnexClientConsumptionRepository } from './repositories/knex.client-consumption.repository';
 
 @Module({
   imports: [
@@ -102,6 +104,10 @@ import { KnexChatControlRepository } from './repositories/knex.chat-control.repo
       provide: ClientAreaNotificationsRepositoryGateway,
       useClass: KnexClientAreaNotificationRepository,
     },
+    {
+      provide: ClientConsumptionsRepositoryGateway,
+      useClass: KnexClientConsumptionRepository,
+    },
   ],
   exports: [
     ClientRepositoryGateway,
@@ -118,6 +124,7 @@ import { KnexChatControlRepository } from './repositories/knex.chat-control.repo
     ProposalsRepositoryGateway,
     SuggestionsRepositoryGateway,
     ClientAreaNotificationsRepositoryGateway,
+    ClientConsumptionsRepositoryGateway,
   ],
 })
 export class DatabaseModule {}
