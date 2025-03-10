@@ -86,6 +86,11 @@ export class MergeAllUseCase {
           oldClientId,
         });
 
+        await this.clientService.changeAllClientAreaNotificationClient({
+          newClientId,
+          oldClientId,
+        });
+
         clientIds.push(oldClientId);
 
         this.logger.log(

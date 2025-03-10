@@ -19,6 +19,16 @@ import { ClientEmailAccountConfigRepositoryGateway } from 'src/app/gateways/clie
 import { KnexClientEmailAccountConfigRepository } from './repositories/knex.client-email-account-config.repository';
 import { ClientGroupRepositoryGateway } from 'src/app/gateways/client-group.repository.gateway';
 import { KnexClientGroupRepository } from './repositories/knex.client-group.repository';
+import { ClientAreaNotificationsRepositoryGateway } from 'src/app/gateways/client-area-notification.repository.gateway';
+import { KnexClientAreaNotificationRepository } from './repositories/knex.client-area-notification.repository';
+import { SuggestionsRepositoryGateway } from 'src/app/gateways/suggestion.repository.gateway';
+import { KnexSuggestionRepository } from './repositories/knex.suggestion.repository';
+import { ProposalsRepositoryGateway } from 'src/app/gateways/proposal.repository.gateway';
+import { KnexProposalRepository } from './repositories/knex.proposal.repository';
+import { TimeInChatRoomsRepositoryGateway } from 'src/app/gateways/time-in-chat-room.repository.gateway';
+import { KnexTimeInChatRoomRepository } from './repositories/knex.time-in-chat-room.repository';
+import { ChatControlsRepositoryGateway } from 'src/app/gateways/chat-control.repository.gateway';
+import { KnexChatControlRepository } from './repositories/knex.chat-control.repository';
 
 @Module({
   imports: [
@@ -72,6 +82,26 @@ import { KnexClientGroupRepository } from './repositories/knex.client-group.repo
       provide: ClientGroupRepositoryGateway,
       useClass: KnexClientGroupRepository,
     },
+    {
+      provide: ChatControlsRepositoryGateway,
+      useClass: KnexChatControlRepository,
+    },
+    {
+      provide: TimeInChatRoomsRepositoryGateway,
+      useClass: KnexTimeInChatRoomRepository,
+    },
+    {
+      provide: ProposalsRepositoryGateway,
+      useClass: KnexProposalRepository,
+    },
+    {
+      provide: SuggestionsRepositoryGateway,
+      useClass: KnexSuggestionRepository,
+    },
+    {
+      provide: ClientAreaNotificationsRepositoryGateway,
+      useClass: KnexClientAreaNotificationRepository,
+    },
   ],
   exports: [
     ClientRepositoryGateway,
@@ -83,6 +113,11 @@ import { KnexClientGroupRepository } from './repositories/knex.client-group.repo
     ContactsRepositoryGateway,
     ClientEmailAccountConfigRepositoryGateway,
     ClientGroupRepositoryGateway,
+    ChatControlsRepositoryGateway,
+    TimeInChatRoomsRepositoryGateway,
+    ProposalsRepositoryGateway,
+    SuggestionsRepositoryGateway,
+    ClientAreaNotificationsRepositoryGateway,
   ],
 })
 export class DatabaseModule {}

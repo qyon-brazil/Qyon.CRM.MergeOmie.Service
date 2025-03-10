@@ -12,6 +12,7 @@ import { SuggestionsRepositoryGateway } from 'src/app/gateways/suggestion.reposi
 import { ProposalsRepositoryGateway } from 'src/app/gateways/proposal.repository.gateway';
 import { TimeInChatRoomsRepositoryGateway } from 'src/app/gateways/time-in-chat-room.repository.gateway';
 import { ChatControlsRepositoryGateway } from 'src/app/gateways/chat-control.repository.gateway';
+import { ClientAreaNotificationsRepositoryGateway } from 'src/app/gateways/client-area-notification.repository.gateway';
 
 @Injectable()
 export class ClientService {
@@ -31,6 +32,7 @@ export class ClientService {
     private readonly proposalRepository: ProposalsRepositoryGateway,
     private readonly timeInChatRepository: TimeInChatRoomsRepositoryGateway,
     private readonly chatControlRepository: ChatControlsRepositoryGateway,
+    private readonly clientAreaNotificationRepository: ClientAreaNotificationsRepositoryGateway,
   ) {}
 
   async getDuplicatesClients() {
@@ -365,6 +367,32 @@ export class ClientService {
 
     this.logger.log(
       `[changeAllChatControlClient]: ${chatControlIds.length} chat control => ${newClientId}`,
+    );
+
+    return { message: 'ok' };
+  }
+
+  async changeAllClientAreaNotificationClient({
+    oldClientId,
+    newClientId,
+  }: {
+    oldClientId: number;
+    newClientId: number;
+  }) {
+    this.logger.log(
+      `[changeAllClientAreaNotificationClient]: changing all client area notifications of ${oldClientId} to ${newClientId}`,
+    );
+
+    const clientAreaNotificationIds =
+      await this.clientAreaNotificationRepository.changeAllClientAreaNotificationsClient(
+        {
+          newClientId,
+          oldClientId,
+        },
+      );
+
+    this.logger.log(
+      `[changeAllClientAreaNotificationClient]: ${clientAreaNotificationIds.length} client area notifications => ${newClientId}`,
     );
 
     return { message: 'ok' };
