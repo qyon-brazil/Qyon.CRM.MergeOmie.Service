@@ -15,6 +15,7 @@ import { ChatControlsRepositoryGateway } from 'src/app/gateways/chat-control.rep
 import { ClientAreaNotificationsRepositoryGateway } from 'src/app/gateways/client-area-notification.repository.gateway';
 import { ClientConsumptionsRepositoryGateway } from 'src/app/gateways/client-consumption.repository.gateway';
 import { ConsumptionExtractsRepositoryGateway } from 'src/app/gateways/consumption-extract.repository.gateway';
+import { RestrictClientInfosRepositoryGateway } from 'src/app/gateways/restrict-client-info.repository.gateway';
 
 @Injectable()
 export class ClientService {
@@ -37,6 +38,7 @@ export class ClientService {
     private readonly clientAreaNotificationRepository: ClientAreaNotificationsRepositoryGateway,
     private readonly clientConsumptionRepository: ClientConsumptionsRepositoryGateway,
     private readonly consumptionExtractRepository: ConsumptionExtractsRepositoryGateway,
+    private readonly restrictClientInfoRepository: RestrictClientInfosRepositoryGateway,
   ) {}
 
   async getDuplicatesClients() {
@@ -447,6 +449,32 @@ export class ClientService {
 
     this.logger.log(
       `[changeAllConsumptionExtractClient]: ${consumptionExtractIds.length} consumption extracts => ${newClientId}`,
+    );
+
+    return { message: 'ok' };
+  }
+
+  async changeAllRestrictClientInfoClient({
+    oldClientId,
+    newClientId,
+  }: {
+    oldClientId: number;
+    newClientId: number;
+  }) {
+    this.logger.log(
+      `[changeAllRestrictClientInfoClient]: changing all restrict client infos of ${oldClientId} to ${newClientId}`,
+    );
+
+    const restrictClientInfoIds =
+      await this.restrictClientInfoRepository.changeAllRestrictClientInfosClient(
+        {
+          newClientId,
+          oldClientId,
+        },
+      );
+
+    this.logger.log(
+      `[changeAllRestrictClientInfoClient]: ${restrictClientInfoIds.length} restrict client infos => ${newClientId}`,
     );
 
     return { message: 'ok' };

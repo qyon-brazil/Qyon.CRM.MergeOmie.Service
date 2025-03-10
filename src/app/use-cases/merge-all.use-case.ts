@@ -101,6 +101,11 @@ export class MergeAllUseCase {
           oldClientId,
         });
 
+        await this.clientService.changeAllRestrictClientInfoClient({
+          newClientId,
+          oldClientId,
+        });
+
         clientIds.push(oldClientId);
 
         this.logger.log(
