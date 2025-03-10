@@ -16,6 +16,7 @@ import { ClientAreaNotificationsRepositoryGateway } from 'src/app/gateways/clien
 import { ClientConsumptionsRepositoryGateway } from 'src/app/gateways/client-consumption.repository.gateway';
 import { ConsumptionExtractsRepositoryGateway } from 'src/app/gateways/consumption-extract.repository.gateway';
 import { RestrictClientInfosRepositoryGateway } from 'src/app/gateways/restrict-client-info.repository.gateway';
+import { ClientAttachmentsRepositoryGateway } from 'src/app/gateways/client-attachment.repository.gateway';
 
 @Injectable()
 export class ClientService {
@@ -39,6 +40,7 @@ export class ClientService {
     private readonly clientConsumptionRepository: ClientConsumptionsRepositoryGateway,
     private readonly consumptionExtractRepository: ConsumptionExtractsRepositoryGateway,
     private readonly restrictClientInfoRepository: RestrictClientInfosRepositoryGateway,
+    private readonly clientAttachmentRepository: ClientAttachmentsRepositoryGateway,
   ) {}
 
   async getDuplicatesClients() {
@@ -475,6 +477,30 @@ export class ClientService {
 
     this.logger.log(
       `[changeAllRestrictClientInfoClient]: ${restrictClientInfoIds.length} restrict client infos => ${newClientId}`,
+    );
+
+    return { message: 'ok' };
+  }
+
+  async changeAllClientAttachmentClient({
+    oldClientId,
+    newClientId,
+  }: {
+    oldClientId: number;
+    newClientId: number;
+  }) {
+    this.logger.log(
+      `[changeAllClientAttachmentClient]: changing all client attachments of ${oldClientId} to ${newClientId}`,
+    );
+
+    const clientAttachmentIds =
+      await this.clientAttachmentRepository.changeAllClientAttachmentsClient({
+        newClientId,
+        oldClientId,
+      });
+
+    this.logger.log(
+      `[changeAllClientAttachmentClient]: ${clientAttachmentIds.length} client attachments => ${newClientId}`,
     );
 
     return { message: 'ok' };

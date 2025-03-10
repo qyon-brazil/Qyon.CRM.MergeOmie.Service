@@ -35,6 +35,8 @@ import { ConsumptionExtractsRepositoryGateway } from 'src/app/gateways/consumpti
 import { KnexConsumptionExtractRepository } from './repositories/knex.consumption-extract.repository';
 import { RestrictClientInfosRepositoryGateway } from 'src/app/gateways/restrict-client-info.repository.gateway';
 import { KnexRestrictClientInfoRepository } from './repositories/knex.restrict-client-info.repository';
+import { ClientAttachmentsRepositoryGateway } from 'src/app/gateways/client-attachment.repository.gateway';
+import { KnexClientAttachmentRepository } from './repositories/knex.client-attachment.repository';
 
 @Module({
   imports: [
@@ -120,6 +122,10 @@ import { KnexRestrictClientInfoRepository } from './repositories/knex.restrict-c
       provide: RestrictClientInfosRepositoryGateway,
       useClass: KnexRestrictClientInfoRepository,
     },
+    {
+      provide: ClientAttachmentsRepositoryGateway,
+      useClass: KnexClientAttachmentRepository,
+    },
   ],
   exports: [
     ClientRepositoryGateway,
@@ -139,6 +145,7 @@ import { KnexRestrictClientInfoRepository } from './repositories/knex.restrict-c
     ClientConsumptionsRepositoryGateway,
     ConsumptionExtractsRepositoryGateway,
     RestrictClientInfosRepositoryGateway,
+    ClientAttachmentsRepositoryGateway,
   ],
 })
 export class DatabaseModule {}
