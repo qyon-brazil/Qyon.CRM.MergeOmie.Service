@@ -37,6 +37,40 @@ import { RestrictClientInfosRepositoryGateway } from 'src/app/gateways/restrict-
 import { KnexRestrictClientInfoRepository } from './repositories/knex.restrict-client-info.repository';
 import { ClientAttachmentsRepositoryGateway } from 'src/app/gateways/client-attachment.repository.gateway';
 import { KnexClientAttachmentRepository } from './repositories/knex.client-attachment.repository';
+import { ServiceOrderRepositoryGateway } from 'src/app/gateways/service-order.repository.gateway';
+import { KnexServiceOrderRepository } from './repositories/knex.service-order.repository';
+import { ProspectRepositoryGateway } from 'src/app/gateways/prospect.repository.gateway';
+import { KnexProspectRepository } from './repositories/knex.prospect.repository';
+import { ClientOnlineRoomRepositoryGateway } from 'src/app/gateways/client-online-room.repository.gateway';
+import { KnexClientOnlineRoomRepository } from './repositories/knex.client-online-room.repository';
+import { AttendanceTaskRepositoryGateway } from 'src/app/gateways/attendance-task.repository.gateway';
+import { KnexAttendanceTaskRepository } from './repositories/knex.attendance-task.repository';
+import { ClientsRepositoryGateway } from 'src/app/gateways/clients.repository.gateway';
+import { KnexClientsRepository } from './repositories/knex.clients.repository';
+import { ClientNotificationRepositoryGateway } from 'src/app/gateways/client-notification.repository.gateway';
+import { KnexClientNotificationRepository } from './repositories/knex.client-notification.repository';
+import { ChatMessageRepositoryGateway } from 'src/app/gateways/chat-message.repository.gateway';
+import { KnexChatMessageRepository } from './repositories/knex.chat-message.repository';
+import { ClientDocumentModelRepositoryGateway } from 'src/app/gateways/client-document-model.repository.gateway';
+import { KnexClientDocumentModelRepository } from './repositories/knex.client-document-model.repository';
+import { OfficeHoursRepositoryGateway } from 'src/app/gateways/office-hours.repository.gateway';
+import { KnexOfficeHoursRepository } from './repositories/knex.office-hours.repository';
+import { ClientCustomFieldRepositoryGateway } from 'src/app/gateways/client-custom-field.repository.gateway';
+import { KnexClientCustomFieldRepository } from './repositories/knex.client-custom-field.repository';
+import { CognitoUserRepositoryGateway } from 'src/app/gateways/cognito-user.repository.gateway';
+import { KnexCognitoUserRepository } from './repositories/knex.cognito-user.repository';
+import { LogStockMoveRepositoryGateway } from 'src/app/gateways/log-stock-move.repository.gateway';
+import { KnexLogStockMoveRepository} from './repositories/knex.log-stock-move.repository';
+import { LogAttendanceRepositoryGateway } from 'src/app/gateways/log-attendance.repository.gateway';
+import { KnexLogAttendanceRepository} from './repositories/knex.log-attendance.repository';
+import { ClientSignRepositoryGateway } from 'src/app/gateways/client-sign.repository.gateway';
+import { KnexClientSignRepository} from './repositories/knex.client-sign.repository';
+import { FileRepositoryGateway } from 'src/app/gateways/file.repository.gateway';
+import { KnexFileRepository} from './repositories/knex.file.repository';
+import { MoveRepositoryGateway } from 'src/app/gateways/move.repository.gateway';
+import { KnexMoveRepository} from './repositories/knex.move.repository';
+import { FavoriteRepositoryGateway } from 'src/app/gateways/favorite.repository.gateway';
+import { KnexFavoriteRepository} from './repositories/knex.favorite.repository';
 
 @Module({
   imports: [
@@ -126,6 +160,78 @@ import { KnexClientAttachmentRepository } from './repositories/knex.client-attac
       provide: ClientAttachmentsRepositoryGateway,
       useClass: KnexClientAttachmentRepository,
     },
+    {
+      provide: ServiceOrderRepositoryGateway,
+      useClass: KnexServiceOrderRepository,
+    },
+    {
+      provide: ProspectRepositoryGateway,
+      useClass: KnexProspectRepository,
+    },
+    {
+      provide: ClientOnlineRoomRepositoryGateway,
+      useClass: KnexClientOnlineRoomRepository,
+    },
+    {
+      provide: AttendanceTaskRepositoryGateway,
+      useClass: KnexAttendanceTaskRepository,
+    },
+    {
+      provide: AttendanceTaskRepositoryGateway,
+      useClass: KnexAttendanceTaskRepository,
+    },
+    {
+      provide: ClientsRepositoryGateway,
+      useClass: KnexClientsRepository,
+    },
+    {
+      provide: ClientNotificationRepositoryGateway,
+      useClass: KnexClientNotificationRepository,
+    },
+    {
+      provide: ChatMessageRepositoryGateway,
+      useClass: KnexChatMessageRepository,
+    },
+    {
+      provide: ClientDocumentModelRepositoryGateway,
+      useClass: KnexClientDocumentModelRepository,
+    },
+    {
+      provide: OfficeHoursRepositoryGateway,
+      useClass: KnexOfficeHoursRepository,
+    },
+    {
+      provide: ClientCustomFieldRepositoryGateway,
+      useClass: KnexClientCustomFieldRepository,
+    },
+    {
+      provide: CognitoUserRepositoryGateway,
+      useClass: KnexCognitoUserRepository,
+    },
+    {
+      provide: LogStockMoveRepositoryGateway,
+      useClass: KnexLogStockMoveRepository,
+    },
+    {
+      provide: LogAttendanceRepositoryGateway,
+      useClass: KnexLogAttendanceRepository,
+    },
+    {
+      provide: ClientSignRepositoryGateway,
+      useClass: KnexClientSignRepository,
+    },
+    {
+      provide: FileRepositoryGateway,
+      useClass: KnexFileRepository,
+    },
+    {
+      provide: MoveRepositoryGateway,
+      useClass: KnexMoveRepository,
+    },
+    {
+      provide: FavoriteRepositoryGateway,
+      useClass: KnexFavoriteRepository,
+    },
   ],
   exports: [
     ClientRepositoryGateway,
@@ -146,6 +252,23 @@ import { KnexClientAttachmentRepository } from './repositories/knex.client-attac
     ConsumptionExtractsRepositoryGateway,
     RestrictClientInfosRepositoryGateway,
     ClientAttachmentsRepositoryGateway,
+    ServiceOrderRepositoryGateway,
+    ProspectRepositoryGateway,
+    ClientOnlineRoomRepositoryGateway,
+    AttendanceTaskRepositoryGateway,
+    ClientsRepositoryGateway,
+    ClientNotificationRepositoryGateway,
+    ChatMessageRepositoryGateway,
+    ClientDocumentModelRepositoryGateway,
+    OfficeHoursRepositoryGateway,
+    ClientCustomFieldRepositoryGateway,
+    CognitoUserRepositoryGateway,
+    LogStockMoveRepositoryGateway,
+    LogAttendanceRepositoryGateway,
+    ClientSignRepositoryGateway,
+    FileRepositoryGateway,
+    MoveRepositoryGateway,
+    FavoriteRepositoryGateway,
   ],
 })
 export class DatabaseModule {}

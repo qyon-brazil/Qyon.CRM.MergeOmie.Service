@@ -17,6 +17,23 @@ import { ClientConsumptionsRepositoryGateway } from 'src/app/gateways/client-con
 import { ConsumptionExtractsRepositoryGateway } from 'src/app/gateways/consumption-extract.repository.gateway';
 import { RestrictClientInfosRepositoryGateway } from 'src/app/gateways/restrict-client-info.repository.gateway';
 import { ClientAttachmentsRepositoryGateway } from 'src/app/gateways/client-attachment.repository.gateway';
+import { ServiceOrderRepositoryGateway } from 'src/app/gateways/service-order.repository.gateway';
+import { ProspectRepositoryGateway } from 'src/app/gateways/prospect.repository.gateway';
+import { ClientOnlineRoomRepositoryGateway } from 'src/app/gateways/client-online-room.repository.gateway';
+import { AttendanceTaskRepositoryGateway } from 'src/app/gateways/attendance-task.repository.gateway';
+import { ClientsRepositoryGateway } from 'src/app/gateways/clients.repository.gateway';
+import { ClientNotificationRepositoryGateway } from 'src/app/gateways/client-notification.repository.gateway';
+import { ChatMessageRepositoryGateway } from 'src/app/gateways/chat-message.repository.gateway';
+import { ClientDocumentModelRepositoryGateway } from 'src/app/gateways/client-document-model.repository.gateway';
+import { OfficeHoursRepositoryGateway } from 'src/app/gateways/office-hours.repository.gateway';
+import { ClientCustomFieldRepositoryGateway } from 'src/app/gateways/client-custom-field.repository.gateway';
+import { CognitoUserRepositoryGateway } from 'src/app/gateways/cognito-user.repository.gateway';
+import { LogStockMoveRepositoryGateway } from 'src/app/gateways/log-stock-move.repository.gateway';
+import { LogAttendanceRepositoryGateway } from 'src/app/gateways/log-attendance.repository.gateway';
+import { ClientSignRepositoryGateway } from 'src/app/gateways/client-sign.repository.gateway';
+import { FileRepositoryGateway } from 'src/app/gateways/file.repository.gateway';
+import { MoveRepositoryGateway } from 'src/app/gateways/move.repository.gateway';
+import { FavoriteRepositoryGateway } from 'src/app/gateways/favorite.repository.gateway';
 
 @Injectable()
 export class ClientService {
@@ -41,6 +58,23 @@ export class ClientService {
     private readonly consumptionExtractRepository: ConsumptionExtractsRepositoryGateway,
     private readonly restrictClientInfoRepository: RestrictClientInfosRepositoryGateway,
     private readonly clientAttachmentRepository: ClientAttachmentsRepositoryGateway,
+    private readonly serviceOrdersRepository: ServiceOrderRepositoryGateway,
+    private readonly prospectRepository: ProspectRepositoryGateway,
+    private readonly clientOnlineRoomRepository: ClientOnlineRoomRepositoryGateway,
+    private readonly attendanceTaskRepository: AttendanceTaskRepositoryGateway,
+    private readonly clientsRepository: ClientsRepositoryGateway,
+    private readonly clientNotificationRepository: ClientNotificationRepositoryGateway,
+    private readonly chatMessageRepository: ChatMessageRepositoryGateway,
+    private readonly clientDocumentModelRepository: ClientDocumentModelRepositoryGateway,
+    private readonly officeHoursRepository: OfficeHoursRepositoryGateway,
+    private readonly clientCustomFieldRepository: ClientCustomFieldRepositoryGateway,
+    private readonly cognitoUserRepository: CognitoUserRepositoryGateway,
+    private readonly logStockMoveRepository: LogStockMoveRepositoryGateway,
+    private readonly logAttendanceRepository: LogAttendanceRepositoryGateway,
+    private readonly clientSignRepository: ClientSignRepositoryGateway,
+    private readonly fileRepository: FileRepositoryGateway,
+    private readonly moveRepository: MoveRepositoryGateway,
+    private readonly favoriteRepository: FavoriteRepositoryGateway,
   ) {}
 
   async getDuplicatesClients() {
@@ -501,6 +535,414 @@ export class ClientService {
 
     this.logger.log(
       `[changeAllClientAttachmentClient]: ${clientAttachmentIds.length} client attachments => ${newClientId}`,
+    );
+
+    return { message: 'ok' };
+  }
+
+  async changeAllServiceOrdersClient({
+    oldClientId,
+    newClientId,
+  }: {
+    oldClientId: number;
+    newClientId: number;
+  }) {
+    this.logger.log(
+      `[changeAllServiceOrdersClient]: changing all service orders of ${oldClientId} to ${newClientId}`,
+    );
+
+    const serviceOrdersIds =
+      await this.serviceOrdersRepository.changeAllServiceOrdersClient({
+        newClientId,
+        oldClientId,
+      });
+
+    this.logger.log(
+      `[changeAllServiceOrdersClient]: ${serviceOrdersIds.length} service orders => ${newClientId}`,
+    );
+
+    return { message: 'ok' };
+  }
+  
+  async changeAllProspectsClient({
+    oldClientId,
+    newClientId,
+  }: {
+    oldClientId: number;
+    newClientId: number;
+  }) {
+    this.logger.log(
+      `[changeAllProspectsClient]: changing all prospects of ${oldClientId} to ${newClientId}`,
+    );
+
+    const prospectsIds =
+      await this.prospectRepository.changeAllProspectsClient({
+        newClientId,
+        oldClientId,
+      });
+
+    this.logger.log(
+      `[changeAllProspectsClient]: ${prospectsIds.length} prospects => ${newClientId}`,
+    );
+
+    return { message: 'ok' };
+  }
+
+  async changeAllClientOnlineRoomsClient({
+    oldClientId,
+    newClientId,
+  }: {
+    oldClientId: number;
+    newClientId: number;
+  }) {
+    this.logger.log(
+      `[changeAllClientOnlineRoomsClient]: changing all client online rooms of ${oldClientId} to ${newClientId}`,
+    );
+
+    const clientOnlineRoomsIds =
+      await this.clientOnlineRoomRepository.changeAllClientOnlineRoomsClient({
+        newClientId,
+        oldClientId,
+      });
+
+    this.logger.log(
+      `[changeAllClientOnlineRoomsClient]: ${clientOnlineRoomsIds.length} client online rooms => ${newClientId}`,
+    );
+
+    return { message: 'ok' };
+  }
+
+  async changeAllAttendanceTasksClient({
+    oldClientId,
+    newClientId,
+  }: {
+    oldClientId: number;
+    newClientId: number;
+  }) {
+    this.logger.log(
+      `[changeAllAttendanceTasksClient]: changing all attendance tasks of ${oldClientId} to ${newClientId}`,
+    );
+
+    const attendanceTasksIds =
+      await this.attendanceTaskRepository.changeAllAttendanceTasksClient({
+        newClientId,
+        oldClientId,
+      });
+
+    this.logger.log(
+      `[changeAllAttendanceTasksClient]: ${attendanceTasksIds.length} attendance tasks => ${newClientId}`,
+    );
+
+    return { message: 'ok' };
+  }
+  
+  async changeAllClientsClient({
+    oldClientId,
+    newClientId,
+  }: {
+    oldClientId: number;
+    newClientId: number;
+  }) {
+    this.logger.log(
+      `[changeAllClientsClient]: changing all clients of ${oldClientId} to ${newClientId}`,
+    );
+
+    const clientsIds =
+      await this.clientsRepository.changeAllClientsClient({
+        newClientId,
+        oldClientId,
+      });
+
+    this.logger.log(
+      `[changeAllClientsClient]: ${clientsIds.length} clients => ${newClientId}`,
+    );
+
+    return { message: 'ok' };
+  }
+
+  async changeAllClientNotificationsClient({
+    oldClientId,
+    newClientId,
+  }: {
+    oldClientId: number;
+    newClientId: number;
+  }) {
+    this.logger.log(
+      `[changeAllClientNotificationsClient]: changing all client notificatons of ${oldClientId} to ${newClientId}`,
+    );
+
+    const clientNotificatonsIds =
+      await this.clientNotificationRepository.changeAllClientNotificationsClient({
+        newClientId,
+        oldClientId,
+      });
+
+    this.logger.log(
+      `[changeAllClientNotificationsClient]: ${clientNotificatonsIds.length} client notificatons => ${newClientId}`,
+    );
+
+    return { message: 'ok' };
+  }
+
+  async changeAllChatMessagesClient({
+    oldClientId,
+    newClientId,
+  }: {
+    oldClientId: number;
+    newClientId: number;
+  }) {
+    this.logger.log(
+      `[changeAllChatMessagesClient]: changing all chat messages of ${oldClientId} to ${newClientId}`,
+    );
+
+    const chatMessagesIds =
+      await this.chatMessageRepository.changeAllChatMessagesClient({
+        newClientId,
+        oldClientId,
+      });
+
+    this.logger.log(
+      `[changeAllChatMessagesClient]: ${chatMessagesIds.length} chat messages => ${newClientId}`,
+    );
+
+    return { message: 'ok' };
+  }
+
+  async changeAllClientDocumentModelsClient({
+    oldClientId,
+    newClientId,
+  }: {
+    oldClientId: number;
+    newClientId: number;
+  }) {
+    this.logger.log(
+      `[changeAllClientDocumentModelsClient]: changing all client document models of ${oldClientId} to ${newClientId}`,
+    );
+
+    const clientDocumentModelsIds =
+      await this.clientDocumentModelRepository.changeAllClientDocumentModelsClient({
+        newClientId,
+        oldClientId,
+      });
+
+    this.logger.log(
+      `[changeAllClientDocumentModelsClient]: ${clientDocumentModelsIds.length} client document models => ${newClientId}`,
+    );
+
+    return { message: 'ok' };
+  }
+  
+  async changeAllOfficeHoursClient({
+    oldClientId,
+    newClientId,
+  }: {
+    oldClientId: number;
+    newClientId: number;
+  }) {
+    this.logger.log(
+      `[changeAllOfficeHoursClient]: changing all office hours of ${oldClientId} to ${newClientId}`,
+    );
+
+    const officeHoursIds =
+      await this.officeHoursRepository.changeAllOfficeHoursClient({
+        newClientId,
+        oldClientId,
+      });
+
+    this.logger.log(
+      `[changeAllOfficeHoursClient]: ${officeHoursIds.length} office hours => ${newClientId}`,
+    );
+
+    return { message: 'ok' };
+  }
+
+  async changeAllClientCustomFieldsClient({
+    oldClientId,
+    newClientId,
+  }: {
+    oldClientId: number;
+    newClientId: number;
+  }) {
+    this.logger.log(
+      `[changeAllClientCustomFieldsClient]: changing all client custom fields of ${oldClientId} to ${newClientId}`,
+    );
+
+    const clientCustomFieldsIds =
+      await this.clientCustomFieldRepository.changeAllClientCustomFieldsClient({
+        newClientId,
+        oldClientId,
+      });
+
+    this.logger.log(
+      `[changeAllClientCustomFieldsClient]: ${clientCustomFieldsIds.length} client custom fields => ${newClientId}`,
+    );
+
+    return { message: 'ok' };
+  }
+
+  async changeAllCognitoUsersClient({
+    oldClientId,
+    newClientId,
+  }: {
+    oldClientId: number;
+    newClientId: number;
+  }) {
+    this.logger.log(
+      `[changeAllCognitoUsersClient]: changing all cognito users of ${oldClientId} to ${newClientId}`,
+    );
+
+    const cognitoUsersIds =
+      await this.cognitoUserRepository.changeAllCognitoUsersClient({
+        newClientId,
+        oldClientId,
+      });
+
+    this.logger.log(
+      `[changeAllCognitoUsersClient]: ${cognitoUsersIds.length} cognito users => ${newClientId}`,
+    );
+
+    return { message: 'ok' };
+  }
+
+  async changeAllLogStockMovesClient({
+    oldClientId,
+    newClientId,
+  }: {
+    oldClientId: number;
+    newClientId: number;
+  }) {
+    this.logger.log(
+      `[changeAllLogStockMovesClient]: changing all log stock moves of ${oldClientId} to ${newClientId}`,
+    );
+
+    const logStockMovesIds =
+      await this.logStockMoveRepository.changeAllLogStockMovesClient({
+        newClientId,
+        oldClientId,
+      });
+
+    this.logger.log(
+      `[changeAllLogStockMovesClient]: ${logStockMovesIds.length} log stock moves => ${newClientId}`,
+    );
+
+    return { message: 'ok' };
+  }
+
+  async changeAllLogAttendancesClient({
+    oldClientId,
+    newClientId,
+  }: {
+    oldClientId: number;
+    newClientId: number;
+  }) {
+    this.logger.log(
+      `[changeAllLogAttendancesClient]: changing all log attendances of ${oldClientId} to ${newClientId}`,
+    );
+
+    const logAttendancesIds =
+      await this.logAttendanceRepository.changeAllLogAttendancesClient({
+        newClientId,
+        oldClientId,
+      });
+
+    this.logger.log(
+      `[changeAllLogAttendancesClient]: ${logAttendancesIds.length} log attendances => ${newClientId}`,
+    );
+
+    return { message: 'ok' };
+  }
+  
+  async changeAllClientSignsClient({
+    oldClientId,
+    newClientId,
+  }: {
+    oldClientId: number;
+    newClientId: number;
+  }) {
+    this.logger.log(
+      `[changeAllClientSignsClient]: changing all client signs of ${oldClientId} to ${newClientId}`,
+    );
+
+    const clientSignsIds =
+      await this.clientSignRepository.changeAllClientSignsClient({
+        newClientId,
+        oldClientId,
+      });
+
+    this.logger.log(
+      `[changeAllClientSignsClient]: ${clientSignsIds.length} client signs => ${newClientId}`,
+    );
+
+    return { message: 'ok' };
+  }
+
+  async changeAllFilesClient({
+    oldClientId,
+    newClientId,
+  }: {
+    oldClientId: number;
+    newClientId: number;
+  }) {
+    this.logger.log(
+      `[changeAllFilesClient]: changing all files of ${oldClientId} to ${newClientId}`,
+    );
+
+    const filesIds =
+      await this.fileRepository.changeAllFilesClient({
+        newClientId,
+        oldClientId,
+      });
+
+    this.logger.log(
+      `[changeAllFilesClient]: ${filesIds.length} files => ${newClientId}`,
+    );
+
+    return { message: 'ok' };
+  }
+
+  async changeAllMovesClient({
+    oldClientId,
+    newClientId,
+  }: {
+    oldClientId: number;
+    newClientId: number;
+  }) {
+    this.logger.log(
+      `[changeAllMovesClient]: changing all moves of ${oldClientId} to ${newClientId}`,
+    );
+
+    const movesIds =
+      await this.moveRepository.changeAllMovesClient({
+        newClientId,
+        oldClientId,
+      });
+
+    this.logger.log(
+      `[changeAllMovesClient]: ${movesIds.length} moves => ${newClientId}`,
+    );
+
+    return { message: 'ok' };
+  }
+
+  async changeAllFavoritesClient({
+    oldClientId,
+    newClientId,
+  }: {
+    oldClientId: number;
+    newClientId: number;
+  }) {
+    this.logger.log(
+      `[changeAllFavoritesClient]: changing all favorites of ${oldClientId} to ${newClientId}`,
+    );
+
+    const favoritesIds =
+      await this.favoriteRepository.changeAllFavoritesClient({
+        newClientId,
+        oldClientId,
+      });
+
+    this.logger.log(
+      `[changeAllFavoritesClient]: ${favoritesIds.length} favorites => ${newClientId}`,
     );
 
     return { message: 'ok' };

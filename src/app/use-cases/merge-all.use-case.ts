@@ -111,6 +111,91 @@ export class MergeAllUseCase {
           oldClientId,
         });
 
+        await this.clientService.changeAllServiceOrdersClient({
+          newClientId,
+          oldClientId,
+        });
+
+        await this.clientService.changeAllProspectsClient({
+          newClientId,
+          oldClientId,
+        });
+
+        await this.clientService.changeAllClientOnlineRoomsClient({
+          newClientId,
+          oldClientId,
+        });
+
+        await this.clientService.changeAllAttendanceTasksClient({
+          newClientId,
+          oldClientId,
+        });
+
+        await this.clientService.changeAllClientsClient({
+          newClientId,
+          oldClientId,
+        });
+
+        await this.clientService.changeAllClientNotificationsClient({
+          newClientId,
+          oldClientId,
+        });
+
+        await this.clientService.changeAllChatMessagesClient({
+          newClientId,
+          oldClientId,
+        });
+
+        await this.clientService.changeAllClientDocumentModelsClient({
+          newClientId,
+          oldClientId,
+        });
+
+        await this.clientService.changeAllOfficeHoursClient({
+          newClientId,
+          oldClientId,
+        });
+
+        await this.clientService.changeAllClientCustomFieldsClient({
+          newClientId,
+          oldClientId,
+        });
+
+        await this.clientService.changeAllCognitoUsersClient({
+          newClientId,
+          oldClientId,
+        });
+
+        await this.clientService.changeAllLogStockMovesClient({
+          newClientId,
+          oldClientId,
+        });
+
+        await this.clientService.changeAllLogAttendancesClient({
+          newClientId,
+          oldClientId,
+        });
+
+        await this.clientService.changeAllClientSignsClient({
+          newClientId,
+          oldClientId,
+        });
+
+        await this.clientService.changeAllFilesClient({
+          newClientId,
+          oldClientId,
+        });
+
+        await this.clientService.changeAllMovesClient({
+          newClientId,
+          oldClientId,
+        });
+
+        await this.clientService.changeAllFavoritesClient({
+          newClientId,
+          oldClientId,
+        });
+
         clientIds.push(oldClientId);
 
         this.logger.log(
