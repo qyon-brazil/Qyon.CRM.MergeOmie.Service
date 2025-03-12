@@ -131,22 +131,12 @@ export class MergeAllUseCase {
           oldClientId,
         });
 
-        await this.clientService.changeAllClientsClient({
-          newClientId,
-          oldClientId,
-        });
-
         await this.clientService.changeAllClientNotificationsClient({
           newClientId,
           oldClientId,
         });
 
         await this.clientService.changeAllChatMessagesClient({
-          newClientId,
-          oldClientId,
-        });
-
-        await this.clientService.changeAllClientDocumentModelsClient({
           newClientId,
           oldClientId,
         });

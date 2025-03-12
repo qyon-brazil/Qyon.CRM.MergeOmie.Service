@@ -21,10 +21,8 @@ import { ServiceOrderRepositoryGateway } from 'src/app/gateways/service-order.re
 import { ProspectRepositoryGateway } from 'src/app/gateways/prospect.repository.gateway';
 import { ClientOnlineRoomRepositoryGateway } from 'src/app/gateways/client-online-room.repository.gateway';
 import { AttendanceTaskRepositoryGateway } from 'src/app/gateways/attendance-task.repository.gateway';
-import { ClientsRepositoryGateway } from 'src/app/gateways/clients.repository.gateway';
 import { ClientNotificationRepositoryGateway } from 'src/app/gateways/client-notification.repository.gateway';
 import { ChatMessageRepositoryGateway } from 'src/app/gateways/chat-message.repository.gateway';
-import { ClientDocumentModelRepositoryGateway } from 'src/app/gateways/client-document-model.repository.gateway';
 import { OfficeHoursRepositoryGateway } from 'src/app/gateways/office-hours.repository.gateway';
 import { ClientCustomFieldRepositoryGateway } from 'src/app/gateways/client-custom-field.repository.gateway';
 import { CognitoUserRepositoryGateway } from 'src/app/gateways/cognito-user.repository.gateway';
@@ -62,10 +60,8 @@ export class ClientService {
     private readonly prospectRepository: ProspectRepositoryGateway,
     private readonly clientOnlineRoomRepository: ClientOnlineRoomRepositoryGateway,
     private readonly attendanceTaskRepository: AttendanceTaskRepositoryGateway,
-    private readonly clientsRepository: ClientsRepositoryGateway,
     private readonly clientNotificationRepository: ClientNotificationRepositoryGateway,
     private readonly chatMessageRepository: ChatMessageRepositoryGateway,
-    private readonly clientDocumentModelRepository: ClientDocumentModelRepositoryGateway,
     private readonly officeHoursRepository: OfficeHoursRepositoryGateway,
     private readonly clientCustomFieldRepository: ClientCustomFieldRepositoryGateway,
     private readonly cognitoUserRepository: CognitoUserRepositoryGateway,
@@ -563,7 +559,7 @@ export class ClientService {
 
     return { message: 'ok' };
   }
-  
+
   async changeAllProspectsClient({
     oldClientId,
     newClientId,
@@ -575,11 +571,12 @@ export class ClientService {
       `[changeAllProspectsClient]: changing all prospects of ${oldClientId} to ${newClientId}`,
     );
 
-    const prospectsIds =
-      await this.prospectRepository.changeAllProspectsClient({
+    const prospectsIds = await this.prospectRepository.changeAllProspectsClient(
+      {
         newClientId,
         oldClientId,
-      });
+      },
+    );
 
     this.logger.log(
       `[changeAllProspectsClient]: ${prospectsIds.length} prospects => ${newClientId}`,
@@ -635,30 +632,6 @@ export class ClientService {
 
     return { message: 'ok' };
   }
-  
-  async changeAllClientsClient({
-    oldClientId,
-    newClientId,
-  }: {
-    oldClientId: number;
-    newClientId: number;
-  }) {
-    this.logger.log(
-      `[changeAllClientsClient]: changing all clients of ${oldClientId} to ${newClientId}`,
-    );
-
-    const clientsIds =
-      await this.clientsRepository.changeAllClientsClient({
-        newClientId,
-        oldClientId,
-      });
-
-    this.logger.log(
-      `[changeAllClientsClient]: ${clientsIds.length} clients => ${newClientId}`,
-    );
-
-    return { message: 'ok' };
-  }
 
   async changeAllClientNotificationsClient({
     oldClientId,
@@ -672,10 +645,12 @@ export class ClientService {
     );
 
     const clientNotificatonsIds =
-      await this.clientNotificationRepository.changeAllClientNotificationsClient({
-        newClientId,
-        oldClientId,
-      });
+      await this.clientNotificationRepository.changeAllClientNotificationsClient(
+        {
+          newClientId,
+          oldClientId,
+        },
+      );
 
     this.logger.log(
       `[changeAllClientNotificationsClient]: ${clientNotificatonsIds.length} client notificatons => ${newClientId}`,
@@ -708,30 +683,6 @@ export class ClientService {
     return { message: 'ok' };
   }
 
-  async changeAllClientDocumentModelsClient({
-    oldClientId,
-    newClientId,
-  }: {
-    oldClientId: number;
-    newClientId: number;
-  }) {
-    this.logger.log(
-      `[changeAllClientDocumentModelsClient]: changing all client document models of ${oldClientId} to ${newClientId}`,
-    );
-
-    const clientDocumentModelsIds =
-      await this.clientDocumentModelRepository.changeAllClientDocumentModelsClient({
-        newClientId,
-        oldClientId,
-      });
-
-    this.logger.log(
-      `[changeAllClientDocumentModelsClient]: ${clientDocumentModelsIds.length} client document models => ${newClientId}`,
-    );
-
-    return { message: 'ok' };
-  }
-  
   async changeAllOfficeHoursClient({
     oldClientId,
     newClientId,
@@ -851,7 +802,7 @@ export class ClientService {
 
     return { message: 'ok' };
   }
-  
+
   async changeAllClientSignsClient({
     oldClientId,
     newClientId,
@@ -887,11 +838,10 @@ export class ClientService {
       `[changeAllFilesClient]: changing all files of ${oldClientId} to ${newClientId}`,
     );
 
-    const filesIds =
-      await this.fileRepository.changeAllFilesClient({
-        newClientId,
-        oldClientId,
-      });
+    const filesIds = await this.fileRepository.changeAllFilesClient({
+      newClientId,
+      oldClientId,
+    });
 
     this.logger.log(
       `[changeAllFilesClient]: ${filesIds.length} files => ${newClientId}`,
@@ -911,11 +861,10 @@ export class ClientService {
       `[changeAllMovesClient]: changing all moves of ${oldClientId} to ${newClientId}`,
     );
 
-    const movesIds =
-      await this.moveRepository.changeAllMovesClient({
-        newClientId,
-        oldClientId,
-      });
+    const movesIds = await this.moveRepository.changeAllMovesClient({
+      newClientId,
+      oldClientId,
+    });
 
     this.logger.log(
       `[changeAllMovesClient]: ${movesIds.length} moves => ${newClientId}`,
@@ -935,11 +884,12 @@ export class ClientService {
       `[changeAllFavoritesClient]: changing all favorites of ${oldClientId} to ${newClientId}`,
     );
 
-    const favoritesIds =
-      await this.favoriteRepository.changeAllFavoritesClient({
+    const favoritesIds = await this.favoriteRepository.changeAllFavoritesClient(
+      {
         newClientId,
         oldClientId,
-      });
+      },
+    );
 
     this.logger.log(
       `[changeAllFavoritesClient]: ${favoritesIds.length} favorites => ${newClientId}`,
